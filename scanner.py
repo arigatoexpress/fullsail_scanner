@@ -11,6 +11,9 @@ load_dotenv()
 
 # Configuration via environment variables
 SUI_WS_URL = os.getenv("SUI_WS_URL", "wss://fullnode.mainnet.sui.io:443")
+SUI_RPC_URL = os.getenv("SUI_RPC_URL", "https://fullnode.mainnet.sui.io")
+USE_WEBSOCKET = os.getenv("USE_WEBSOCKET", "true").lower() not in {"0", "false"}
+POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))
 EVENT_TYPE = os.getenv("MOVE_EVENT_TYPE")
 PACKAGE_ID = os.getenv("MOVE_PACKAGE_ID")
 MODULE = os.getenv("MOVE_MODULE")
@@ -84,8 +87,34 @@ async def listen() -> None:
             print(f"Listener error: {exc}; reconnecting in 5s")
             await asyncio.sleep(5)
 
+async def poll() -> None:
+    """Poll events over HTTP when websockets are unavailable."""
+    cursor = None
+    filter_payload = {"MoveEventType": EVENT_TYPE}
+    while True:
+        params = [filter_payload, cursor, 50, False]
+        payload = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "suix_queryEvents",
+            "params": params,
+        }
+        try:
+            resp = requests.post(SUI_RPC_URL, json=payload, timeout=10)
+            resp.raise_for_status()
+            result = resp.json().get("result", {})
+            for item in result.get("data", []):
+                await send_alert(item)
+            cursor = result.get("nextCursor", cursor)
+        except Exception as exc:
+            print(f"Poll error: {exc}")
+        await asyncio.sleep(POLL_INTERVAL)
+
 if __name__ == "__main__":
     try:
-        asyncio.run(listen())
+        if USE_WEBSOCKET:
+            asyncio.run(listen())
+        else:
+            asyncio.run(poll())
     except KeyboardInterrupt:
         print("Exiting")

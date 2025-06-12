@@ -13,7 +13,9 @@ specific Move events occur (for example deposit events on your DEX).
    - Either provide `MOVE_EVENT_TYPE` with the full struct tag, **or** set all of
      `MOVE_PACKAGE_ID`, `MOVE_MODULE`, and `MOVE_EVENT_STRUCT` to build it.
    - `WEBHOOK_URL` (optional): HTTP endpoint to post events to. If not set, events are printed.
-   - `SUI_WS_URL` (optional): Websocket RPC URL. Defaults to `wss://fullnode.mainnet.sui.io:443`.
+   - `SUI_WS_URL` (optional): Websocket RPC URL used for real-time subscriptions.
+   - `USE_WEBSOCKET` (optional): set to `false` to fall back to HTTP polling if websockets are unavailable.
+   - `SUI_RPC_URL` (optional): HTTP RPC URL for polling (defaults to `https://fullnode.mainnet.sui.io`).
    - `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` (optional): if both are provided, events are also sent to the specified Telegram chat using the bot API.
 
 3. Run the listener:
