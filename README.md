@@ -40,21 +40,22 @@ forward any matches to Telegram or the webhook if configured.
 
 ### Example with Telegram
 
-If you created a bot with token `7457865200:AAG4LugnTYF3zgnR_36p7QDugJzEJTDSYbI`
-and know the chat ID to post to, set these variables before running the
-scanner:
+If you created a bot with token `YOUR_TELEGRAM_BOT_TOKEN` and know the chat ID
+to post to, set these variables before running the scanner:
 
 ```bash
 export MOVE_PACKAGE_ID=0xe1b7d5fd116fea5a8f8e85c13754248d56626a8d0a614b7d916c2348d8323149
 export MOVE_MODULE=vault
 export MOVE_EVENT_STRUCT=DepositEvent
-export TELEGRAM_BOT_TOKEN=7457865200:AAG4LugnTYF3zgnR_36p7QDugJzEJTDSYbI
+export TELEGRAM_BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
 export TELEGRAM_CHAT_ID=<your_chat_id>
 python scanner.py
 ```
 
 Keep your bot token private. Anyone with the token can send messages using your
-bot.
+bot. After creating the bot you can [join our Telegram group](https://t.me/+4ZZQ3MQWsjAyNjQx)
+and add the bot to receive alerts there. Use the `/getUpdates` API method or a
+test message to determine the group chat ID.
 
 ### Running continuously
 
