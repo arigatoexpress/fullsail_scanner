@@ -24,7 +24,8 @@ specific Move events occur (for example deposit events on your DEX).
    ```
 
 The script connects to the Sui websocket RPC using `suix_subscribeEvent` and forwards any
-received events to the webhook if configured.
+received events to the webhook if configured. If the websocket handshake fails (for
+example due to network restrictions), it automatically falls back to HTTP polling.
 
 ### Example
 

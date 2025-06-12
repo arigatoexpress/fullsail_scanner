@@ -113,7 +113,11 @@ async def poll() -> None:
 if __name__ == "__main__":
     try:
         if USE_WEBSOCKET:
-            asyncio.run(listen())
+            try:
+                asyncio.run(listen())
+            except websockets.InvalidStatusCode as exc:
+                print(f"Websocket failed ({exc.status_code}); falling back to HTTP polling")
+                asyncio.run(poll())
         else:
             asyncio.run(poll())
     except KeyboardInterrupt:
