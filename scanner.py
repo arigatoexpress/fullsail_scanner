@@ -1,13 +1,16 @@
 import asyncio
 import json
 import os
+from pathlib import Path
 from typing import Any
 
 import requests
 import websockets
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load variables from a .env file located next to this script, if present.
+env_path = Path(__file__).resolve().with_name(".env")
+load_dotenv(env_path)
 
 # Configuration via environment variables
 SUI_WS_URL = os.getenv("SUI_WS_URL", "wss://fullnode.mainnet.sui.io:443")
