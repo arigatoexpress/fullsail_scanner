@@ -9,7 +9,7 @@ specific Move events occur (for example deposit events on your DEX).
    ```bash
    pip install -r requirements.txt
    ```
-2. Set environment variables:
+2. Copy `.env.example` to `.env` and adjust the values, or set the following environment variables manually:
    - Either provide `MOVE_EVENT_TYPE` with the full struct tag, **or** set all of
      `MOVE_PACKAGE_ID`, `MOVE_MODULE`, and `MOVE_EVENT_STRUCT` to build it.
    - `WEBHOOK_URL` (optional): HTTP endpoint to post events to. If not set, events are printed.
@@ -60,8 +60,8 @@ test message to determine the group chat ID.
 ### Running continuously
 
 For unattended operation you can run the script under `systemd`. Create an
-environment file (for example `/opt/fullsail_scanner/env`) containing the
-variables above and a service unit similar to:
+environment file (for example `/opt/fullsail_scanner/env`) by copying
+`.env.example` and editing it, then reference it from a service unit similar to:
 
 ```ini
 [Unit]

@@ -5,6 +5,9 @@ from typing import Any
 
 import requests
 import websockets
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configuration via environment variables
 SUI_WS_URL = os.getenv("SUI_WS_URL", "wss://fullnode.mainnet.sui.io:443")
