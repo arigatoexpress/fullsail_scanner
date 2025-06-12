@@ -55,7 +55,8 @@ python scanner.py
 Keep your bot token private. Anyone with the token can send messages using your
 bot. After creating the bot you can [join our Telegram group](https://t.me/+4ZZQ3MQWsjAyNjQx)
 and add the bot to receive alerts there. Use the `/getUpdates` API method or a
-test message to determine the group chat ID.
+test message to determine the group chat ID. New members must send a message
+in the chat before their chat ID will appear in the `/getUpdates` response.
 
 ### Running continuously
 
